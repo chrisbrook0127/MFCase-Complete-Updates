@@ -1,0 +1,40 @@
+name: MFCase Complete Windows infrastructure (not application validation)
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/windows-infrastructure.yml'
+      - 'scripts/verify_infrastructure.py'
+      - 'tests/test_infrastructure.py'
+      - 'AGENTS.md'
+      - 'APP_BASELINE.md'
+  push:
+    branches: ['development/standards-v1.2.0']
+permissions:
+  contents: read
+concurrency:
+  group: mfcase-complete-setup-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  infrastructure:
+    name: Windows setup boundary and archive safety
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify actual committed setup tree
+        run: python scripts/verify_infrastructure.py setup
+      - name: Run infrastructure regression suite
+        shell: pwsh
+        run: |
+          python -m unittest discover -s tests -p test_infrastructure.py -v
+          if ($LASTEXITCODE -ne 0) { throw 'Infrastructure regression failed' }
+      - name: Confirm tracked files remain unchanged
+        shell: pwsh
+        run: |
+          git diff --exit-code
+          if ($LASTEXITCODE -ne 0) { throw 'Tracked files changed' }

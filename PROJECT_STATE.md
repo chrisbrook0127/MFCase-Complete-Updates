@@ -1,0 +1,7 @@
+# MFCase Complete project state (public, sanitized)
+Task: Development Standards v1.2.0 infrastructure adoption; authorized scope infrastructure only.
+Branch: development/standards-v1.2.0; original main 7b3cc743bea69aabdf17c1ac78cde681a03dcaf5. Read actual branch head and PR checkpoint before resuming.
+State: BLOCKED for application validation and conditional merge. Current repository has no application source, release packages, application test suite or build commands. Identified candidate archive metadata, but raw bytes were inaccessible. No application or release changes made.
+Safe independent work: add repository instructions, rules, baseline ledger, checkpoints, work log, changelog, real infrastructure validation script, regression suite and read-only Windows infrastructure workflow.
+Next: inspect actual CI run and record outcomes in PR; obtain authorized Complete source bytes and verify exact approved hash/version; adapt real application tests in an authorized environment; validate installer/updater and protected data; then reconfirm scope and conditional merge gate. Do not merge solely on infrastructure test results.
+No private input, logs, case data or local paths here. No production release, source transfer, or standalone MFCase changes. Project Sources attachment requires a separately supported verified destination.
