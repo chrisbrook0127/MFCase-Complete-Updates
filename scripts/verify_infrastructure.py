@@ -17,7 +17,7 @@ ORIGINAL = {
 ADDED = {
     "AGENTS.md", "PROJECT_RULES.md", "APP_BASELINE.md", "PROJECT_STATE.md",
     "WORK_LOG.md", "CHANGELOG.md", "CI_ADAPTER.md",
-    "scripts/verify_infrastructure.py", "tests/test_infrastructure.py",
+    "scripts/verify_infrastructure.py", "tests/test_infrastructure.py", "scripts/validate_application.py",
     ".github/workflows/windows-infrastructure.yml",
 }
 RESERVED = {"CON", "PRN", "AUX", "NUL"} | {
@@ -58,8 +58,8 @@ def verify_setup():
     origin = subprocess.check_output(["git", "remote", "get-url", "origin"], text=True)
     verify_repository(origin, os.environ.get("GITHUB_REPOSITORY"))
     verify_tree(read_tree())
-    print("PASS repository identity, 3 original blobs, exact 10-file infrastructure allowlist.")
-    print("APPLICATION VALIDATION BLOCKED: approved Complete source and tests unavailable.")
+    print("PASS repository identity, 3 original blobs, exact 11-file infrastructure allowlist.")
+    print("APPLICATION WINDOWS VALIDATION SEPARATE: private supplied archive is not in public CI.")
 
 def verify_archive(path, expected_sha):
     require(re.fullmatch(r"[0-9a-fA-F]{64}", expected_sha) is not None,
