@@ -1,0 +1,3 @@
+# Staged MFCase Complete update feed — TEST ONLY
+
+This manifest is not live. The existing v1.0.3 client reads only main/updates/version.json. No candidate application source or archive has been uploaded to this public repository. Do not merge, publish or activate this branch until the exact local v1.0.4 archive passes native Windows download/install/restart validation and the user explicitly approves publication. The asset path must be `updates/1.0.4/MFCaseComplete_Update.zip`; the archive digest must match version.json. An incomplete feed must never reach main. Preserve standalone MFCase and do not modify any sibling repository.
