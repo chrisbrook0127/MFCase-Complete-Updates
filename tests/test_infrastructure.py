@@ -56,6 +56,13 @@ class InfrastructureTests(unittest.TestCase):
             with ZipFile(path, "w") as archive:
                 for name in names:
                     archive.writestr(name, b"synthetic")
+            # ZIP writers normalize backslashes on Windows; inject the raw member bytes.
+            if any(isinstance(name, str) and chr(92) in name for name in names):
+                data = path.read_bytes()
+                for name in names:
+                    if isinstance(name, str) and chr(92) in name:
+                        data = data.replace(name.replace(chr(92), "/").encode(), name.encode())
+                path.write_bytes(data)
             digest = hashlib.sha256(path.read_bytes()).hexdigest()
             return guard.verify_archive(path, digest if expected is None else expected)
 

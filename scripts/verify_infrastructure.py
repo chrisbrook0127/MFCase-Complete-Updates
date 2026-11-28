@@ -75,7 +75,7 @@ def verify_archive(path, expected_sha):
         files = set()
         folders = set()
         for entry in infos:
-            name = entry.filename
+            name = entry.orig_filename
             p = PurePosixPath(name)
             require(name and not p.is_absolute() and ".." not in p.parts
                     and p.as_posix() == name.rstrip("/")
